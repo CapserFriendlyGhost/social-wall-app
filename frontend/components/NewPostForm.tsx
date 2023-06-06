@@ -30,8 +30,8 @@ const NewPostForm = () => {
   };
 
   return (
-    <div className="w-1/2">
-      <form className="w-full" onSubmit={handleSubmit}>
+    <div className=" w-1/2 card card-side bg-gradient-to-r from-emerald-300 via-green-300 via-20% shadow-xl">
+      <form className="w-full card-body" onSubmit={handleSubmit}>
         <div className="w-full flex row justify-center gap-10">
           <textarea
             placeholder="Bio"

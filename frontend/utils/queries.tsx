@@ -20,3 +20,33 @@ export const CREATE_POST = gql`
     }
   }
 `;
+
+export const REGISTER_USER = gql`
+  mutation Mutation($data: UserCreateInput!) {
+    createUser(data: $data) {
+      name
+      email
+      password {
+        isSet
+      }
+    }
+  }
+`;
+
+export const AUTH_USER = gql`
+  mutation Mutation($email: String!, $password: String!) {
+    authenticateUserWithPassword(email: $email, password: $password) {
+      ... on UserAuthenticationWithPasswordSuccess {
+        item {
+          email
+          id
+          name
+        }
+        sessionToken
+      }
+      ... on UserAuthenticationWithPasswordFailure {
+        message
+      }
+    }
+  }
+`;
