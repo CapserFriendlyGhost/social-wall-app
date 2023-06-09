@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const NavBar = () => {
+  const { user, setUser } = useAuth();
+  console.log(user);
   return (
     <div className="navbar bg-base-100 shadow-xl mb-10 bg-gradient-to-r from-emerald-300 via-green-300 via-20% ">
       <div className="navbar-start">
@@ -38,7 +42,7 @@ const NavBar = () => {
           </ul>
         </div>
       </div>
-
+      <div>{user?.name}</div>
       <Link href="/">
         <div className="navbar-center btn btn-ghost normal-case text-xl">
           myNews

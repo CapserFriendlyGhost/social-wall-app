@@ -2,6 +2,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { AUTH_USER } from "@/utils/queries";
+import { useAuth } from "@/context/AuthContext";
 
 interface UserCredentials {
   email: string;
@@ -12,6 +13,7 @@ interface UserData {
   email: string;
   id: string;
   name: string;
+  __typename: string;
 }
 
 interface AuthResponse {
@@ -22,11 +24,13 @@ interface AuthResponse {
   };
 }
 
-const Register = () => {
+const Login = () => {
   const [values, setValues] = useState<UserCredentials>({
     email: "",
     password: "",
   });
+
+  const { user, setUser } = useAuth();
 
   const [authUser] = useMutation<AuthResponse>(AUTH_USER);
 
@@ -42,6 +46,9 @@ const Register = () => {
         variables: { email: values.email, password: values.password },
       });
       console.log(response);
+      if (response?.data?.authenticateUserWithPassword?.item && setUser) {
+        setUser(response.data.authenticateUserWithPassword.item);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -115,4 +122,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
